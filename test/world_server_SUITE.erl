@@ -177,10 +177,13 @@ test_register_opponent(_Config) ->
     true = is_process_alive(Pid).
 
 test_attack(_Config) ->
-    [Pid1] = world_server:register_opponent(100),
-    [Pid2,Pid1] = world_server:register_opponent(1000),
+    Pid1 = opponent:start(100),
+    world_server:register_opponent(Pid1),
+    Pid2 = opponent:start(1000),
+    world_server:register_opponent(Pid2),
+
     [Pid2,Pid1] = world_server:get_active_opponents(),
     world_server:attack(1),
     [Pid2] = world_server:get_active_opponents().
-    
+
 

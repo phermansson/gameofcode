@@ -62,9 +62,9 @@ handle_call(get_active_opponents, _From, #state{opponents = Opponents} = State)-
 
 handle_call(attack, _From, State) ->
     Opponents = State#state.opponents,
-    Attack = fun(A,B) -> 
-                    opponent:attack(A, B, 200),
-		    say("~p is attacking ~p~n",[A, B])
+    Attack = fun(A,B) ->
+        opponent:attack(A, B, 200),
+		say("~p is attacking ~p~n",[A, B])
      end,
     [Attack(A,B)|| A <- Opponents, B <- Opponents, A /= B],
 
